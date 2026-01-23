@@ -95,6 +95,7 @@ struct NightSkyBackground: View {
 struct ContentView: View {
     @Environment(AlarmManager.self) private var alarmManager
     @State private var showingAddAlarm = false
+    @State private var showingAbout = false
     @State private var selectedAlarm: Alarm?
     @State private var showLowVolumeAlert = false
     @State private var pendingAlarmForSleepMode: Alarm?
@@ -117,9 +118,16 @@ struct ContentView: View {
             }
             .navigationTitle("Alarms")
             .toolbar {
-                if currentVolume < volumeThreshold {
-                    ToolbarItem(placement: .topBarLeading) {
+                ToolbarItem(placement: .topBarLeading) {
+                    if currentVolume < volumeThreshold {
                         lowVolumeBanner
+                    } else {
+                        Button {
+                            showingAbout = true
+                        } label: {
+                            Image(systemName: "info.circle")
+                                .font(.title3)
+                        }
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
@@ -133,6 +141,9 @@ struct ContentView: View {
             }
             .sheet(isPresented: $showingAddAlarm) {
                 AlarmEditView(alarm: nil)
+            }
+            .sheet(isPresented: $showingAbout) {
+                AboutView()
             }
             .sheet(item: $selectedAlarm) { alarm in
                 AlarmEditView(alarm: alarm)
