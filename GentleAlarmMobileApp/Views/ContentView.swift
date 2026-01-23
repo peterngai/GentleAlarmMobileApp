@@ -4,6 +4,7 @@
 //
 
 import SwiftUI
+import Combine
 
 // MARK: - Star Model
 struct Star: Identifiable {
@@ -95,6 +96,12 @@ struct ContentView: View {
     @Environment(AlarmManager.self) private var alarmManager
     @State private var showingAddAlarm = false
     @State private var selectedAlarm: Alarm?
+    @State private var showLowVolumeAlert = false
+    @State private var pendingAlarmForSleepMode: Alarm?
+    @State private var currentVolume: Float = 1.0
+
+    private let volumeThreshold: Float = 0.75  // 75% threshold
+    private let volumeCheckTimer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationStack {
@@ -110,6 +117,11 @@ struct ContentView: View {
             }
             .navigationTitle("Alarms")
             .toolbar {
+                if currentVolume < volumeThreshold {
+                    ToolbarItem(placement: .topBarLeading) {
+                        lowVolumeBanner
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showingAddAlarm = true
@@ -133,11 +145,45 @@ struct ContentView: View {
                     AlarmFiringView(alarm: alarm)
                 }
             }
+            .alert("Volume is Low", isPresented: $showLowVolumeAlert) {
+                Button("Turn Up Volume", role: .cancel) { }
+                Button("Start Anyway") {
+                    if let alarm = pendingAlarmForSleepMode {
+                        alarmManager.startLiveActivity(for: alarm)
+                    }
+                }
+            } message: {
+                Text("Your volume is set low. You might not hear your alarm.")
+            }
         }
         .preferredColorScheme(.dark)
         .task {
             await alarmManager.requestNotificationPermissions()
         }
+        .onAppear {
+            currentVolume = AudioService.shared.getCurrentVolume()
+        }
+        .onReceive(volumeCheckTimer) { _ in
+            currentVolume = AudioService.shared.getCurrentVolume()
+        }
+    }
+
+    private var lowVolumeBanner: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "speaker.wave.1.fill")
+                .foregroundStyle(.orange)
+                .font(.subheadline)
+            Text("Volume: \(Int(currentVolume * 100))%")
+                .font(.subheadline)
+                .foregroundStyle(.orange)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(
+            Capsule()
+                .fill(Color.orange.opacity(0.15))
+        )
+        .fixedSize()
     }
 
     private var emptyStateView: some View {
@@ -256,7 +302,13 @@ struct ContentView: View {
 
     private func sleepModeButton(for alarm: Alarm) -> some View {
         Button {
-            alarmManager.startLiveActivity(for: alarm)
+            let volume = AudioService.shared.getCurrentVolume()
+            if volume < volumeThreshold {
+                pendingAlarmForSleepMode = alarm
+                showLowVolumeAlert = true
+            } else {
+                alarmManager.startLiveActivity(for: alarm)
+            }
         } label: {
             HStack {
                 Image(systemName: "moon.zzz.fill")

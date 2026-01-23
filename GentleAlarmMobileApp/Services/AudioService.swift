@@ -485,4 +485,9 @@ final class AudioService {
     var pendingAlarm: Date? {
         return pendingAlarmTime
     }
+
+    /// Returns the current system output volume (0.0 to 1.0)
+    func getCurrentVolume() -> Float {
+        return AVAudioSession.sharedInstance().outputVolume
+    }
 }
