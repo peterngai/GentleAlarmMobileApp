@@ -5,7 +5,9 @@
       "Bash(swift:*)",
       "Bash(sips:*)",
       "Bash(tree:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ]
   }
 }
