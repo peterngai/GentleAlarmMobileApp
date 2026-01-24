@@ -96,8 +96,6 @@ struct BulletPoint: View {
 struct AboutView: View {
     @Environment(\.dismiss) private var dismiss
 
-    private let githubURL = URL(string: "https://github.com/peterngai/GentleAlarmMobileApp")!
-
     var body: some View {
         NavigationStack {
             List {
@@ -130,10 +128,6 @@ struct AboutView: View {
                         PrivacyPolicyView()
                     } label: {
                         Label("Privacy Policy", systemImage: "hand.raised.fill")
-                    }
-
-                    Link(destination: githubURL) {
-                        Label("Source Code", systemImage: "chevron.left.forwardslash.chevron.right")
                     }
                 }
 
