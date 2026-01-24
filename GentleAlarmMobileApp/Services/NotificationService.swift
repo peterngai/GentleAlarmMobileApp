@@ -17,7 +17,7 @@ final class NotificationService {
 
     func requestAuthorization() async -> Bool {
         do {
-            let options: UNAuthorizationOptions = [.alert, .sound, .badge, .criticalAlert]
+            let options: UNAuthorizationOptions = [.alert, .sound, .badge]
             let granted = try await UNUserNotificationCenter.current().requestAuthorization(options: options)
             if granted {
                 await setupNotificationCategories()
@@ -90,7 +90,7 @@ final class NotificationService {
             content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: "alarm_notification.m4a"))
         } else {
             // Fall back to default critical sound (louder, repeating)
-            content.sound = .defaultCritical
+            content.sound = .default
         }
 
         let calendar = Calendar.current
@@ -133,7 +133,7 @@ final class NotificationService {
         content.interruptionLevel = .timeSensitive
 
         // Use critical sound for snooze alerts
-        content.sound = .defaultCritical
+        content.sound = .default
 
         let trigger = UNTimeIntervalNotificationTrigger(
             timeInterval: Double(alarm.snoozeDuration * 60),
