@@ -66,7 +66,7 @@ struct PrivacyPolicyView: View {
                 Group {
                     Text("Contact")
                         .font(.headline)
-                    Text("If you have questions about this privacy policy, please contact us at peter@nysoft.net.")
+                    Text("If you have questions about this privacy policy, please contact us at peternknightmusic@gmail.com.")
                 }
             }
             .padding()
