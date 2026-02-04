@@ -72,6 +72,8 @@ struct StarFieldView: View {
 
 // MARK: - Night Sky Background
 struct NightSkyBackground: View {
+    var starCount: Int = 80
+
     var body: some View {
         ZStack {
             // Dark navy gradient
@@ -86,7 +88,7 @@ struct NightSkyBackground: View {
             )
 
             // Twinkling stars
-            StarFieldView(starCount: 80)
+            StarFieldView(starCount: starCount)
         }
         .ignoresSafeArea()
     }
@@ -102,13 +104,13 @@ struct ContentView: View {
     @State private var currentVolume: Float = 1.0
 
     private let volumeThreshold: Float = 0.75  // 75% threshold
-    private let volumeCheckTimer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
+    private let volumeCheckTimer = Timer.publish(every: 5.0, on: .main, in: .common).autoconnect()
 
     var body: some View {
         NavigationStack {
             ZStack {
-                // Night sky background
-                NightSkyBackground()
+                // Night sky background (reduced stars during Sleep Mode to save battery)
+                NightSkyBackground(starCount: alarmManager.isLiveActivityActive ? 20 : 80)
 
                 if alarmManager.alarms.isEmpty {
                     emptyStateView

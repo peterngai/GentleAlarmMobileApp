@@ -343,8 +343,8 @@ final class AlarmManager {
     private func startLiveActivityUpdates(for alarm: Alarm, fireDate: Date) {
         liveActivityUpdateTimer?.invalidate()
 
-        // Update every 30 seconds to keep the countdown accurate
-        liveActivityUpdateTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] timer in
+        // Update every 60 seconds for state sync (widget uses built-in timerInterval for display)
+        liveActivityUpdateTimer = Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { [weak self] timer in
             guard let self = self,
                   let activity = self.currentActivity else {
                 timer.invalidate()

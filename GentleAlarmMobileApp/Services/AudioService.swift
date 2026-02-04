@@ -421,7 +421,7 @@ final class AudioService {
     private func startAlarmCheckTimer() {
         // Check every second if it's time for the alarm
         alarmCheckTimer?.invalidate()
-        alarmCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+        alarmCheckTimer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { [weak self] timer in
             guard let self = self,
                   let alarmTime = self.pendingAlarmTime else {
                 timer.invalidate()
