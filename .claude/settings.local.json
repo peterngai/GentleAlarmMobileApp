@@ -9,7 +9,12 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(wc:*)",
-      "Bash(xcrun xccov view:*)"
+      "Bash(xcrun xccov view:*)",
+      "WebFetch(domain:apps.apple.com)",
+      "WebFetch(domain:www.google.com)",
+      "WebFetch(domain:duckduckgo.com)",
+      "WebFetch(domain:html.duckduckgo.com)",
+      "Bash(git push:*)"
     ]
   }
 }
