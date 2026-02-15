@@ -13,7 +13,6 @@ final class AlarmSoundTests: XCTestCase {
     func testAlarmSoundRawValues() {
         XCTAssertEqual(AlarmSound.morningBirds.rawValue, "morning_birds")
         XCTAssertEqual(AlarmSound.oceanWaves.rawValue, "ocean-waves")
-        XCTAssertEqual(AlarmSound.zeldaFairyFountain.rawValue, "zelda-fairy-fountain")
         XCTAssertEqual(AlarmSound.clockAlarm.rawValue, "clock-alarm")
     }
 
@@ -22,7 +21,6 @@ final class AlarmSoundTests: XCTestCase {
     func testAlarmSoundDisplayNames() {
         XCTAssertEqual(AlarmSound.morningBirds.displayName, "Morning Birds")
         XCTAssertEqual(AlarmSound.oceanWaves.displayName, "Ocean Waves")
-        XCTAssertEqual(AlarmSound.zeldaFairyFountain.displayName, "Zelda Fairy Fountain")
         XCTAssertEqual(AlarmSound.clockAlarm.displayName, "Clock Alarm")
     }
 
@@ -31,7 +29,6 @@ final class AlarmSoundTests: XCTestCase {
     func testAlarmSoundDescriptions() {
         XCTAssertEqual(AlarmSound.morningBirds.description, "Nature sounds")
         XCTAssertEqual(AlarmSound.oceanWaves.description, "Calm waves")
-        XCTAssertEqual(AlarmSound.zeldaFairyFountain.description, "Magical harp melody")
         XCTAssertEqual(AlarmSound.clockAlarm.description, "Loud failsafe alarm")
     }
 
@@ -40,7 +37,6 @@ final class AlarmSoundTests: XCTestCase {
     func testAlarmSoundSystemSoundNames() {
         XCTAssertEqual(AlarmSound.morningBirds.systemSoundName, "Birds")
         XCTAssertEqual(AlarmSound.oceanWaves.systemSoundName, "Waves")
-        XCTAssertEqual(AlarmSound.zeldaFairyFountain.systemSoundName, "Harp")
         XCTAssertEqual(AlarmSound.clockAlarm.systemSoundName, "Alarm")
     }
 
@@ -55,7 +51,7 @@ final class AlarmSoundTests: XCTestCase {
     // MARK: - CaseIterable Tests
 
     func testAlarmSoundAllCasesCount() {
-        XCTAssertEqual(AlarmSound.allCases.count, 4)
+        XCTAssertEqual(AlarmSound.allCases.count, 3)
     }
 
     func testAlarmSoundAllCasesContainsAll() {
@@ -63,7 +59,6 @@ final class AlarmSoundTests: XCTestCase {
 
         XCTAssertTrue(allCases.contains(.morningBirds))
         XCTAssertTrue(allCases.contains(.oceanWaves))
-        XCTAssertTrue(allCases.contains(.zeldaFairyFountain))
         XCTAssertTrue(allCases.contains(.clockAlarm))
     }
 
@@ -71,18 +66,16 @@ final class AlarmSoundTests: XCTestCase {
 
     func testSelectableSoundsExcludesFailsafe() {
         let selectable = AlarmSound.selectableSounds
-        XCTAssertEqual(selectable.count, 3)
+        XCTAssertEqual(selectable.count, 2)
         XCTAssertFalse(selectable.contains(.clockAlarm))
         XCTAssertTrue(selectable.contains(.morningBirds))
         XCTAssertTrue(selectable.contains(.oceanWaves))
-        XCTAssertTrue(selectable.contains(.zeldaFairyFountain))
     }
 
     func testIsFailsafeOnly() {
         XCTAssertTrue(AlarmSound.clockAlarm.isFailsafeOnly)
         XCTAssertFalse(AlarmSound.morningBirds.isFailsafeOnly)
         XCTAssertFalse(AlarmSound.oceanWaves.isFailsafeOnly)
-        XCTAssertFalse(AlarmSound.zeldaFairyFountain.isFailsafeOnly)
     }
 
     // MARK: - Codable Tests
@@ -114,7 +107,6 @@ final class AlarmSoundTests: XCTestCase {
     func testAlarmSoundInitFromValidRawValue() {
         XCTAssertEqual(AlarmSound(rawValue: "morning_birds"), .morningBirds)
         XCTAssertEqual(AlarmSound(rawValue: "ocean-waves"), .oceanWaves)
-        XCTAssertEqual(AlarmSound(rawValue: "zelda-fairy-fountain"), .zeldaFairyFountain)
         XCTAssertEqual(AlarmSound(rawValue: "clock-alarm"), .clockAlarm)
     }
 

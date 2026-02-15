@@ -8,7 +8,6 @@ import Foundation
 enum AlarmSound: String, CaseIterable, Codable, Identifiable {
     case morningBirds = "morning_birds"
     case oceanWaves = "ocean-waves"
-    case zeldaFairyFountain = "zelda-fairy-fountain"
     case clockAlarm = "clock-alarm"
 
     var id: String { rawValue }
@@ -27,7 +26,6 @@ enum AlarmSound: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .morningBirds: return "Morning Birds"
         case .oceanWaves: return "Ocean Waves"
-        case .zeldaFairyFountain: return "Zelda Fairy Fountain"
         case .clockAlarm: return "Clock Alarm"
         }
     }
@@ -36,7 +34,6 @@ enum AlarmSound: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .morningBirds: return "Nature sounds"
         case .oceanWaves: return "Calm waves"
-        case .zeldaFairyFountain: return "Magical harp melody"
         case .clockAlarm: return "Loud failsafe alarm"
         }
     }
@@ -45,7 +42,6 @@ enum AlarmSound: String, CaseIterable, Codable, Identifiable {
         switch self {
         case .morningBirds: return "Birds"
         case .oceanWaves: return "Waves"
-        case .zeldaFairyFountain: return "Harp"
         case .clockAlarm: return "Alarm"
         }
     }

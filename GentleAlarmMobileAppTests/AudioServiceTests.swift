@@ -222,7 +222,7 @@ final class AudioServiceTests: XCTestCase {
     // MARK: - Different Sound Types Tests
 
     func testBackgroundAudioWithDifferentSounds() {
-        let sounds: [AlarmSound] = [.morningBirds, .oceanWaves, .zeldaFairyFountain]
+        let sounds: [AlarmSound] = [.morningBirds, .oceanWaves]
         let futureDate = Date().addingTimeInterval(3600)
 
         for sound in sounds {
