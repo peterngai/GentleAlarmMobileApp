@@ -6,6 +6,8 @@
 import SwiftUI
 
 struct PrivacyPolicyView: View {
+    private let privacyPolicyURL = URL(string: "https://peterngai.github.io/GentleAlarmMobileApp/privacy.html")!
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 20) {
@@ -68,6 +70,11 @@ struct PrivacyPolicyView: View {
                         .font(.headline)
                     Text("If you have questions about this privacy policy, please contact us at peternknightmusic@gmail.com.")
                 }
+
+                Link(destination: privacyPolicyURL) {
+                    Label("View Online", systemImage: "safari")
+                }
+                .padding(.top, 8)
             }
             .padding()
         }
