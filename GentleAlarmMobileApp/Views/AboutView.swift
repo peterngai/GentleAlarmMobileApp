@@ -13,7 +13,7 @@ struct PrivacyPolicyView: View {
                     Text("Privacy Policy")
                         .font(.title.bold())
 
-                    Text("Last updated: January 22, 2026")
+                    Text("Last updated: February 14, 2026")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                 }
@@ -52,7 +52,7 @@ struct PrivacyPolicyView: View {
                         .font(.headline)
                     Text("The app requests the following permissions:")
                     VStack(alignment: .leading, spacing: 4) {
-                        BulletPoint("Notifications: Required to alert you when alarms go off, including critical alerts to ensure alarms can wake you even when Do Not Disturb is enabled")
+                        BulletPoint("Notifications: Required to alert you when alarms go off")
                         BulletPoint("Background Audio: Used to ensure alarms can sound reliably even when the app is in the background")
                     }
                 }

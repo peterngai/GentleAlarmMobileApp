@@ -2,7 +2,7 @@
 
 **Gentle Alarm Mobile App**
 
-*Last updated: January 22, 2026*
+*Last updated: February 14, 2026*
 
 ## Overview
 
@@ -29,8 +29,8 @@ All app data is stored locally on your device only:
 
 The app requests the following permissions:
 
-- **Notifications**: Required to alert you when alarms go off. Includes critical alerts to ensure alarms can wake you even when Do Not Disturb is enabled.
-- **Background Audio**: Used to ensure alarms can sound reliably even when the app is in the background.
+- **Notifications**: Required to alert you when alarms go off
+- **Background Audio**: Used to ensure alarms can sound reliably even when the app is in the background
 
 ## Third-Party Services
 
@@ -46,7 +46,7 @@ If we make changes to this privacy policy, we will update the "Last updated" dat
 
 ## Contact
 
-If you have questions about this privacy policy, please open an issue on our GitHub repository.
+If you have questions about this privacy policy, please contact us at peternknightmusic@gmail.com.
 
 ---
 
