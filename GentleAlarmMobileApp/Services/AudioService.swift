@@ -56,7 +56,9 @@ final class AudioService {
             try session.setCategory(.playback, mode: .default, options: [.duckOthers])
             try session.setActive(true, options: .notifyOthersOnDeactivation)
         } catch {
+            #if DEBUG
             print("Failed to configure audio session: \(error)")
+            #endif
         }
     }
 
@@ -109,7 +111,9 @@ final class AudioService {
 
         // Try to load bundled sound file, fall back to system sound
         guard let url = getSoundURL(for: sound) else {
+            #if DEBUG
             print("Could not find sound file for: \(sound.rawValue)")
+            #endif
             playSystemSound()
             return
         }
@@ -128,7 +132,9 @@ final class AudioService {
                 startFailsafeTimer()
             }
         } catch {
+            #if DEBUG
             print("Failed to play audio: \(error)")
+            #endif
             playSystemSound()
         }
     }
@@ -248,7 +254,9 @@ final class AudioService {
         failsafeTimer?.invalidate()
 
         let failsafeSeconds = Double(failsafeMinutes * 60)
+        #if DEBUG
         print("Failsafe timer started: will trigger in \(failsafeMinutes) minutes")
+        #endif
 
         failsafeTimer = Timer.scheduledTimer(withTimeInterval: failsafeSeconds, repeats: false) { [weak self] _ in
             self?.triggerFailsafeAlarm()
@@ -261,7 +269,9 @@ final class AudioService {
     }
 
     private func triggerFailsafeAlarm() {
+        #if DEBUG
         print("Failsafe alarm triggered!")
+        #endif
 
         isFailsafeActive = true
 
@@ -277,7 +287,9 @@ final class AudioService {
 
         // Load and play the clock-alarm sound at full volume
         guard let url = getSoundURL(for: .clockAlarm) else {
+            #if DEBUG
             print("Could not find failsafe sound file (clock-alarm)")
+            #endif
             // Fallback to system sound at full volume
             playSystemSound()
             return
@@ -291,9 +303,13 @@ final class AudioService {
             audioPlayer?.play()
 
             currentVolume = 1.0
+            #if DEBUG
             print("Failsafe alarm playing at full volume")
+            #endif
         } catch {
+            #if DEBUG
             print("Failed to play failsafe audio: \(error)")
+            #endif
             playSystemSound()
         }
     }
@@ -319,7 +335,9 @@ final class AudioService {
                 self?.stopAlarm()
             }
         } catch {
+            #if DEBUG
             print("Failed to preview sound: \(error)")
+            #endif
             AudioServicesPlayAlertSound(SystemSoundID(1005))
         }
     }
@@ -358,7 +376,9 @@ final class AudioService {
         startAlarmCheckTimer()
 
         isBackgroundAudioActive = true
+        #if DEBUG
         print("Background audio started, alarm scheduled for \(alarmTime)")
+        #endif
     }
 
     /// Stops the background audio and clears the pending alarm
@@ -377,7 +397,9 @@ final class AudioService {
         onAlarmTrigger = nil
 
         isBackgroundAudioActive = false
+        #if DEBUG
         print("Background audio stopped")
+        #endif
     }
 
     private func startAmbientAudio() {
@@ -393,7 +415,9 @@ final class AudioService {
                 ambientPlayer?.play()
                 return
             } catch {
+                #if DEBUG
                 print("Failed to play ambient audio file: \(error)")
+                #endif
             }
         }
 
@@ -413,7 +437,9 @@ final class AudioService {
                 ambientPlayer?.prepareToPlay()
                 ambientPlayer?.play()
             } catch {
+                #if DEBUG
                 print("Failed to create minimal audio player: \(error)")
+                #endif
             }
         }
     }
@@ -473,7 +499,9 @@ final class AudioService {
             callback?()
         }
 
+        #if DEBUG
         print("Alarm triggered from background audio!")
+        #endif
     }
 
     /// Updates the pending alarm time (useful for snooze or schedule changes)

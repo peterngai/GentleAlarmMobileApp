@@ -24,7 +24,9 @@ final class NotificationService {
             }
             return granted
         } catch {
+            #if DEBUG
             print("Failed to request notification authorization: \(error)")
+            #endif
             return false
         }
     }
@@ -64,7 +66,9 @@ final class NotificationService {
         await cancelAlarm(alarm)
 
         guard let fireDate = alarm.nextFireDate() else {
+            #if DEBUG
             print("Could not determine next fire date for alarm: \(alarm.id)")
+            #endif
             return
         }
 
@@ -105,9 +109,13 @@ final class NotificationService {
 
         do {
             try await UNUserNotificationCenter.current().add(request)
+            #if DEBUG
             print("Scheduled alarm \(alarm.label) for \(fireDate)")
+            #endif
         } catch {
+            #if DEBUG
             print("Failed to schedule alarm: \(error)")
+            #endif
         }
     }
 
@@ -148,9 +156,13 @@ final class NotificationService {
 
         do {
             try await UNUserNotificationCenter.current().add(request)
+            #if DEBUG
             print("Scheduled snooze for \(alarm.snoozeDuration) minutes")
+            #endif
         } catch {
+            #if DEBUG
             print("Failed to schedule snooze: \(error)")
+            #endif
         }
     }
 

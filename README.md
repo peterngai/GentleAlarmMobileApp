@@ -136,7 +136,6 @@ The app requires these key configurations (already set):
 <key>UIBackgroundModes</key>
 <array>
     <string>audio</string>
-    <string>processing</string>
 </array>
 ```
 

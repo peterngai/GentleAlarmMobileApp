@@ -38,7 +38,9 @@ final class AlarmManager {
         do {
             alarms = try JSONDecoder().decode([Alarm].self, from: data)
         } catch {
+            #if DEBUG
             print("Failed to load alarms: \(error)")
+            #endif
         }
     }
 
@@ -47,7 +49,9 @@ final class AlarmManager {
             let data = try JSONEncoder().encode(alarms)
             UserDefaults.standard.set(data, forKey: Self.storageKey)
         } catch {
+            #if DEBUG
             print("Failed to save alarms: \(error)")
+            #endif
         }
     }
 
@@ -234,13 +238,17 @@ final class AlarmManager {
     /// This keeps the app alive in the background and displays in Dynamic Island.
     func startLiveActivity(for alarm: Alarm) {
         guard let fireDate = alarm.nextFireDate() else {
+            #if DEBUG
             print("Cannot start Live Activity: no fire date for alarm")
+            #endif
             return
         }
 
         // Check if Live Activities are available
         guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+            #if DEBUG
             print("Live Activities are not enabled")
+            #endif
             return
         }
 
@@ -269,7 +277,9 @@ final class AlarmManager {
             )
 
             currentActivity = activity
+            #if DEBUG
             print("Started Live Activity: \(activity.id)")
+            #endif
 
             // Start background audio to keep the app alive
             audioService.startBackgroundAudio(
@@ -287,7 +297,9 @@ final class AlarmManager {
             startLiveActivityUpdates(for: alarm, fireDate: fireDate)
 
         } catch {
+            #if DEBUG
             print("Failed to start Live Activity: \(error)")
+            #endif
         }
     }
 
@@ -312,7 +324,9 @@ final class AlarmManager {
         }
 
         currentActivity = nil
+        #if DEBUG
         print("Ended Live Activity")
+        #endif
     }
 
     private func handleBackgroundAlarmTrigger(alarm: Alarm) {
