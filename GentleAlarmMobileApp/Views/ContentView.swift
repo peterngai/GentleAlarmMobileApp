@@ -118,17 +118,19 @@ struct ContentView: View {
                     alarmListView
                 }
             }
-            .navigationTitle("Alarms")
+            .navigationTitle("Gentle Alarms")
+            .navigationBarTitleDisplayMode(.large)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    if currentVolume < volumeThreshold {
-                        lowVolumeBanner
-                    } else {
+                    HStack(spacing: 12) {
                         Button {
                             showingAbout = true
                         } label: {
                             Image(systemName: "info.circle")
                                 .font(.title3)
+                        }
+                        if currentVolume < volumeThreshold {
+                            lowVolumeBanner
                         }
                     }
                 }
