@@ -54,7 +54,7 @@ open GentleAlarmMobileApp.xcodeproj
 1. Select the `GentleAlarmMobileApp` project in the Navigator
 2. Select each target (`GentleAlarmMobileApp`, `AlarmWidgetExtension`)
 3. Under **Signing & Capabilities**, select your Development Team
-4. Update the Bundle Identifier if needed (currently `com.nysoft.gentlealarmmobileapp`)
+4. Update the Bundle Identifier if needed (currently `com.nysoft.gentlealarm`)
 
 ### 4. Build and Run
 
@@ -211,7 +211,7 @@ If you need to share data between the main app and widget extension, you'll need
 1. Enable App Groups capability on both targets
 2. Use a shared UserDefaults suite:
    ```swift
-   UserDefaults(suiteName: "group.com.nysoft.gentlealarmmobileapp")
+   UserDefaults(suiteName: "group.com.nysoft.gentlealarm")
    ```
 
 ## Generating the App Icon

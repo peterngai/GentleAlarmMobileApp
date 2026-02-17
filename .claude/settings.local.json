@@ -14,7 +14,8 @@
       "WebFetch(domain:www.google.com)",
       "WebFetch(domain:duckduckgo.com)",
       "WebFetch(domain:html.duckduckgo.com)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(grep:*)"
     ]
   }
 }
