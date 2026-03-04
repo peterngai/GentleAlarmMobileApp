@@ -2,7 +2,7 @@
 
 **Gentle Alarm Mobile App**
 
-*Last updated: February 14, 2026*
+_Last updated: February 14, 2026_
 
 ## Overview
 

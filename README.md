@@ -59,6 +59,7 @@ open GentleAlarmMobileApp.xcodeproj
 ### 4. Build and Run
 
 **For Simulator:**
+
 ```bash
 xcodebuild -project GentleAlarmMobileApp.xcodeproj \
            -scheme GentleAlarmMobileApp \
@@ -67,6 +68,7 @@ xcodebuild -project GentleAlarmMobileApp.xcodeproj \
 ```
 
 **For Device:**
+
 ```bash
 xcodebuild -project GentleAlarmMobileApp.xcodeproj \
            -scheme GentleAlarmMobileApp \
@@ -91,6 +93,7 @@ xcodebuild test -project GentleAlarmMobileApp.xcodeproj \
 1. **Archive the App**
    - In Xcode: Product > Archive
    - Or via command line:
+
    ```bash
    xcodebuild -project GentleAlarmMobileApp.xcodeproj \
               -scheme GentleAlarmMobileApp \
@@ -100,6 +103,7 @@ xcodebuild test -project GentleAlarmMobileApp.xcodeproj \
    ```
 
 2. **Export for Distribution**
+
    ```bash
    xcodebuild -exportArchive \
               -archivePath build/GentleAlarmMobileApp.xcarchive \
@@ -142,6 +146,7 @@ The app requires these key configurations (already set):
 ### Notification Categories
 
 The app registers these notification actions:
+
 - **ALARM_CATEGORY**: Main alarm notification category
 - **SNOOZE_ACTION**: Snooze the alarm
 - **DISMISS_ACTION**: Dismiss the alarm
@@ -157,9 +162,11 @@ The app uses a clever technique to maintain background execution: it plays a nea
 ### Exponential Volume Fade-In
 
 Rather than a linear volume increase, the app uses an exponential curve with exponent 2.5:
+
 ```swift
 let volume = pow(progress, 2.5)
 ```
+
 This creates a more natural wake-up experience where volume increases slowly at first, then more rapidly.
 
 ### Failsafe Alarm System
@@ -171,6 +178,7 @@ If the user doesn't acknowledge the alarm within a configurable timeout (default
 ### Live Activity Lifecycle
 
 Live Activities require careful state management:
+
 - Activities must be ended explicitly to prevent orphaned Dynamic Island displays
 - The app updates activity state every 30 seconds while an alarm is pending
 - When the alarm fires, the activity transitions to a "ringing" state
@@ -180,6 +188,7 @@ Live Activities require careful state management:
 ### Notification Permission Handling
 
 The app requests notification permissions on first launch. If denied:
+
 - Alarms will still fire within the app
 - Background/locked screen notifications won't appear
 - Consider prompting users to enable in Settings if denied
@@ -187,18 +196,22 @@ The app requests notification permissions on first launch. If denied:
 ### Timer Precision
 
 The alarm check timer uses `.common` RunLoop mode:
+
 ```swift
 Timer.scheduledTimer(...).tolerance = 0.5
 RunLoop.current.add(timer, forMode: .common)
 ```
+
 This ensures timers fire even during UI interactions like scrolling.
 
 ### Audio Session Configuration
 
 The audio session is configured for playback with ducking:
+
 ```swift
 try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: .duckOthers)
 ```
+
 This means other audio (music, podcasts) will be lowered when the alarm plays.
 
 ### Data Persistence
@@ -208,6 +221,7 @@ Alarms are stored in UserDefaults as JSON under the key `"savedAlarms"`. For pro
 ### Widget Extension App Groups
 
 If you need to share data between the main app and widget extension, you'll need to:
+
 1. Enable App Groups capability on both targets
 2. Use a shared UserDefaults suite:
    ```swift

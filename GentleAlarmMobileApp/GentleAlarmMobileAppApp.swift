@@ -9,15 +9,29 @@ import UserNotifications
 @main
 struct GentleAlarmMobileApp: App {
     @State private var alarmManager = AlarmManager()
+    @State private var splashOpacity: Double = 1.0
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(alarmManager)
-                .onAppear {
-                    appDelegate.alarmManager = alarmManager
+            ZStack {
+                ContentView()
+                    .environment(alarmManager)
+                    .onAppear {
+                        appDelegate.alarmManager = alarmManager
+                    }
+
+                SplashView()
+                    .opacity(splashOpacity)
+                    .allowsHitTesting(splashOpacity > 0)
+            }
+            .onAppear {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    withAnimation(.easeInOut(duration: 0.8)) {
+                        splashOpacity = 0
+                    }
                 }
+            }
         }
     }
 }
